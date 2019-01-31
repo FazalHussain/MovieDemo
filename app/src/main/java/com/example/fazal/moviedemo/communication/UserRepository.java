@@ -2,6 +2,7 @@ package com.example.fazal.moviedemo.communication;
 
 import android.content.Context;
 
+import com.example.fazal.moviedemo.models.response.MovieResponse;
 import com.example.fazal.moviedemo.models.response.SessionResponse;
 
 
@@ -30,6 +31,17 @@ public class UserRepository {
         restRequestHandler.createSession(context, mDataHandler);
     }
 
+    /**
+     * Fetch Movie Listings.
+     *
+     * @param context Holding the reference of an activity.
+     * @param iUserDataHandler callback to be invoked when API Call initiate.
+     */
+    public void getMovies(Context context, IUserDataHandler iUserDataHandler) {
+        userDataHandler = iUserDataHandler;
+        restRequestHandler.getMovies(context, mDataHandler);
+    }
+
     private IResponseCallback mDataHandler = new IResponseCallback() {
 
         @Override
@@ -37,10 +49,12 @@ public class UserRepository {
             String className = object.getClass().getSimpleName();
             if (userDataHandler != null) {
                 switch (className) {
-                    case "SessionResponse": {
+                    case "SessionResponse":
                         userDataHandler.onSessionCreated((SessionResponse) object);
                         break;
-                    }
+                    case "MovieResponse":
+                        userDataHandler.onMovieListingsFetched((MovieResponse) object);
+                        break;
                 }
             }
         }

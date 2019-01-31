@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MovieDemo</string>
     <string name="error_message">Something went wrong please try again.</string>
+    <string name="session_expire">Session has expired</string>
 </resources>

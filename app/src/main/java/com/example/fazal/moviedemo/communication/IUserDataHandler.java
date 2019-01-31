@@ -1,5 +1,6 @@
 package com.example.fazal.moviedemo.communication;
 
+import com.example.fazal.moviedemo.models.response.MovieResponse;
 import com.example.fazal.moviedemo.models.response.SessionResponse;
 
 /**
@@ -13,6 +14,13 @@ public interface IUserDataHandler {
      * @param response The {@linkplain SessionResponse} object.
      */
     void onSessionCreated(SessionResponse response);
+
+    /**
+     * Callback to be invoked when {@linkplain MovieResponse} received from server.
+     *
+     * @param response The {@linkplain MovieResponse} object.
+     */
+    void onMovieListingsFetched(MovieResponse response);
 
     /**
      * Callback to be invoked when error occur.

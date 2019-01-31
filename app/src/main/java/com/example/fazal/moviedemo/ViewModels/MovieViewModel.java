@@ -1,5 +1,6 @@
 package com.example.fazal.moviedemo.ViewModels;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
@@ -11,6 +12,7 @@ import android.support.annotation.NonNull;
 import com.example.fazal.moviedemo.R;
 import com.example.fazal.moviedemo.communication.IUserDataHandler;
 import com.example.fazal.moviedemo.communication.UserRepository;
+import com.example.fazal.moviedemo.models.response.MovieResponse;
 import com.example.fazal.moviedemo.models.response.SessionResponse;
 
 import java.util.List;
@@ -19,9 +21,11 @@ import java.util.List;
  * Movie View Model Class
  */
 public class MovieViewModel extends AndroidViewModel {
-    private MutableLiveData<DataWrapper<SessionResponse>> sessionResponseLiveData;
+    private MutableLiveData<SessionResponse> sessionResponseLiveData;
+    private MutableLiveData<MovieResponse> movieResponseLiveData;
     private UserRepository repository;
-    Context context;
+    @SuppressLint("StaticFieldLeak")
+    private Context context;
 
     /**
      * Constructor
@@ -39,21 +43,43 @@ public class MovieViewModel extends AndroidViewModel {
      */
     public void createSession() {
         if (sessionResponseLiveData == null) {
-            sessionResponseLiveData = new MutableLiveData<DataWrapper<SessionResponse>>();
+            sessionResponseLiveData = new MutableLiveData<SessionResponse>();
         }
         repository.createSession(context, userDataHandler);
     }
 
     /**
+     * Request For Movie Listings
+     */
+    public void requestMoviesListings() {
+        if (movieResponseLiveData == null) {
+            movieResponseLiveData = new MutableLiveData<>();
+        }
+        repository.getMovies(context, userDataHandler);
+    }
+
+    /**
      * Fetch the live data of DataWrapper of Type {@linkplain SessionResponse}
      *
-     * @return The {@linkplain LiveData<DataWrapper<SessionResponse>}
+     * @return The {@linkplain LiveData<SessionResponse>}
      */
-    public LiveData<DataWrapper<SessionResponse>> getSession() {
+    public LiveData<SessionResponse> getSession() {
         if (sessionResponseLiveData == null) {
-            sessionResponseLiveData = new MutableLiveData<DataWrapper<SessionResponse>>();
+            sessionResponseLiveData = new MutableLiveData<>();
         }
         return sessionResponseLiveData;
+    }
+
+    /**
+     * Fetch the Movie Listings
+     *
+     * @return The {@linkplain LiveData<MovieResponse>}
+     */
+    public LiveData<MovieResponse> getMoviesListings() {
+        if (movieResponseLiveData == null) {
+            movieResponseLiveData = new MutableLiveData<>();
+        }
+        return movieResponseLiveData;
     }
 
     /**
@@ -63,20 +89,17 @@ public class MovieViewModel extends AndroidViewModel {
 
         @Override
         public void onSessionCreated(SessionResponse response) {
-                sessionResponseLiveData.postValue(new DataWrapper<SessionResponse>(
-                        response,
-                        null,
-                        0
-                ));
+                sessionResponseLiveData.postValue(response);
+        }
+
+        @Override
+        public void onMovieListingsFetched(MovieResponse response) {
+            movieResponseLiveData.postValue(response);
         }
 
         @Override
         public void onError(String error, int errorCode) {
-            sessionResponseLiveData.postValue(new DataWrapper<SessionResponse>(
-                    null,
-                    error,
-                    errorCode
-            ));
+            //Handle Error
         }
     };
 }
