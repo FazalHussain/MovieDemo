@@ -10,6 +10,8 @@
         android:id="@+id/ivPoster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="80dp"
+        android:minHeight="90dp"
         app:srcCompat="@drawable/img"/>
 
     <android.support.v7.widget.AppCompatTextView

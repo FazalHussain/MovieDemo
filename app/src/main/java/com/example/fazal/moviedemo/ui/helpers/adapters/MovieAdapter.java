@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.fazal.moviedemo.R;
+import com.example.fazal.moviedemo.constants.ApiTags;
 import com.example.fazal.moviedemo.models.data.MovieData;
 import com.squareup.picasso.Picasso;
 
@@ -24,10 +25,26 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     Context context;
     List<MovieData> movieDataList;
+    onItemClickListener listener;
 
-    public MovieAdapter(Context context, List<MovieData> movieDataList) {
+    /**
+     * Interface definition for on item click listener
+     * that will be invoked when view has clicked
+     */
+    public interface onItemClickListener {
+        /**
+         * This method will be invoked when view has clicked
+         *
+         * @param position The item position that has been clicked.
+         */
+        void onItemClick(int position);
+    }
+
+    public MovieAdapter(Context context, List<MovieData> movieDataList,
+                        onItemClickListener listener) {
         this.context = context;
         this.movieDataList = movieDataList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -45,7 +62,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         viewHolder.tvDescription.setText(data.getDescription());
         viewHolder.tvReleaseDate.setText(data.getReleaseDate());
         Picasso.get().
-                load("https://image.tmdb.org/t/p/w154/5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg").
+                load(ApiTags.BASE_URL_IMAGE + data.getPosterPath()).
                 into(viewHolder.ivPoster);
     }
 
@@ -57,7 +74,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     /**
      * The item view holder inner class
      */
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.ivPoster)
         AppCompatImageView ivPoster;
@@ -77,7 +94,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            listener.onItemClick(getAdapterPosition());
+        }
+    }
+
+    /**
+     * Refresh the list again
+     *
+     * @param data
+     */
+    public void reset(List<MovieData> data){
+        movieDataList = data;
+        notifyDataSetChanged();
     }
 
 }

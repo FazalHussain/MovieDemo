@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/etMinYear"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:inputType="number"
+        android:padding="12dp"
+        android:hint="@string/min_year"
+        android:background="@null"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/etMaxYear"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:inputType="number"
+        android:padding="12dp"
+        android:hint="@string/max_year"
+        android:background="@null"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/filterBtn"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/apply_filter"/>
+
+
+
+</LinearLayout>
