@@ -4,14 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black_dim"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.activities.DetailsActivity"
     tools:showIn="@layout/activity_details2">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_opacity"
+            android:textSize="16dp"
+            android:text="Release Date"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tvRelDate"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_opacity"
+            android:text="2018-06-10"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:text="Description"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_marginTop="4dp"
+            android:textColor="@color/black_opacity"
+            android:id="@+id/tvOverview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/large_text" />
+
+
+    </LinearLayout>
+
+
 
 </android.support.v4.widget.NestedScrollView>

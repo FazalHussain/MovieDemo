@@ -65,8 +65,4 @@ class MainActivity : AppCompatActivity() {
     fun setToolbarTitle(title: String) {
         supportActionBar?.title = title
     }
-
-    fun hideMenuItem(position: Int) {
-        
-    }
 }

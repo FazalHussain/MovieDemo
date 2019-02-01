@@ -95,6 +95,7 @@ public class MovieDisplayFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(mCurrentActivity, DetailsActivity.class);
+                intent.putExtra(Constants.MOVIE_DATA, list.get(position));
                 startActivity(intent);
             }
         });

@@ -10,6 +10,7 @@ final liveDataVersion = "1.1.2"
 final viewModelVersion = "1.1.0"
 final picassoVersion = "2.71828"
 final streamVersion = "1.2.1"
+final progressVersion = "v1.1"
 
 //Dependencies of Network Libs
 final networkDependencies = [
@@ -38,6 +39,14 @@ final stream = [
         stream: "com.annimon:stream:${streamVersion}"
 ]
 
+final progressBar = [
+        progress    :"com.github.eralpyucel:CircleProgressView:${progressVersion}"
+]
+
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
 android {
 
     compileOptions {
@@ -48,7 +57,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.fazal.moviedemo"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -84,5 +93,6 @@ dependencies {
     implementation viewModelsDependencies.values()
     implementation picasso.values()
     implementation stream.values()
+    implementation progressBar.values()
     annotationProcessor "com.jakewharton:butterknife-compiler:${ButterKnifeVersion}"
 }

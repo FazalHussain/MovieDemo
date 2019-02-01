@@ -11,4 +11,6 @@ object Constants {
     @JvmField
     val MAX_YEAR_FILTER: String? = "MAX_YEAR_FILTER"
 
+    @JvmField
+    val MOVIE_DATA: String? = "MOVIE_DATA"
 }
